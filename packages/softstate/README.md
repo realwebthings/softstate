@@ -1,7 +1,7 @@
 # softstate
 
-[![npm](https://img.shields.io/npm/v/softstate)](https://www.npmjs.com/package/softstate)
-[![license](https://img.shields.io/npm/l/softstate)](./LICENSE)
+[![npm](https://img.shields.io/npm/v/softstate?style=flat)](https://www.npmjs.com/package/softstate)
+[![license](https://img.shields.io/npm/l/softstate?style=flat)](./LICENSE)
 
 A 356 B state manager for React and Next.js. Zustand-style API, with persistence, cross-tab sync
 and mutable updates as separate imports, so you pay only for what you use.
