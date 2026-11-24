@@ -1,0 +1,40 @@
+# Disabled on purpose for the first release.
+#
+# To turn CI on later:
+#   1. gh auth refresh -h github.com -s workflow   (GitHub needs the `workflow` scope to push this file)
+#   2. mkdir -p .github/workflows
+#   3. cp docs/ci.yml.example .github/workflows/ci.yml
+#   4. commit and push
+#
+# What it does: on every push to main and every pull request, GitHub starts a clean Linux
+# machine and runs the same checks you run locally. It never publishes and never sees npm.
+
+# Name shown in the GitHub "Actions" tab.
+name: CI
+
+# When to run.
+on:
+  push:
+    branches: [main]   # pushes to main
+  pull_request:        # any pull request
+
+jobs:
+  verify:
+    # A fresh, temporary Linux machine.
+    runs-on: ubuntu-latest
+    steps:
+      # Download this repository onto the machine.
+      - uses: actions/checkout@v4
+
+      # Install Node 22 and cache downloaded npm packages between runs.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # Install the exact versions in package-lock.json.
+      - run: npm ci
+
+      # Type check, 98 tests, build, per-export size budgets, and the API guard
+      # that fails when a public export is removed or a signature changes.
+      - run: npm run verify -w softstate
