@@ -1,5 +1,10 @@
 {
   "name": "softstate-monorepo",
   "private": true,
-  "workspaces": ["packages/*", "examples/*"]
+  "workspaces": ["packages/*", "examples/*"],
+  "scripts": {
+    "docs": "node scripts/sync-docs.mjs",
+    "docs:check": "node scripts/sync-docs.mjs --check",
+    "verify": "npm run docs:check && npm run verify -w softstate"
+  }
 }
